@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Sign Up | Log In</title>
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./css/style.scss" />
+    <link rel="stylesheet" href="./css/toastbtn.scss" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"
+    />
+  </head>
+  <body>
+    <!-- notification center starts -->
+
+    <!-- notification center ends -->
+
+    <div class="wrapper zIndex cardanimation" id="wrapper_1">
+      <div class="title-text">
+        <div class="title login">Login</div>
+        <!-- <div class="title signup">Account 1</div> -->
+      </div>
+      <div class="form-container">
+        <!-- <div class="slide-controls">
+          <input type="radio" name="slide" id="login" checked />
+          <input type="radio" name="slide" id="signup" />
+          <label for="login" class="slide login">Login</label>
+          <div class="slider-tab"></div>
+        </div> -->
+        <div class="form-inner">
+          <div class="login">
+            <form action="action.php" method="post">
+              <div class="field">
+                <input
+                  type="text"
+                  placeholder="Email Address"
+                  id="loginUsername"
+                  name="loginUsername"
+                  required
+                />
+              </div>
+              <p class="field">
+                <!-- <label for="password">Password:</label> -->
+                <input
+                  type="password"
+                  name="loginPassword"
+                  placeholder="Password"
+                  id="loginPassword"
+                  required
+                />
+                <i class="bi bi-eye-slash" id="togglePassword"></i>
+              </p>
+              <div class="pass-link">
+                <a href="#">Reset password?</a>
+              </div>
+              <!-- <div class="field btn"> -->
+                <!-- <div class="btn-layer"></div> -->
+                <input type="submit" value="Login" />
+              <!-- </div> -->
+            </form>
+          </div>
+          <div class="signup-link">
+            Don't Have Account?
+            <button class="btn btn-5" onclick="switchCard('wrapper_1')">
+              Create A New
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- class="btn btn-2 draw-border" -->
+      <!-- <button
+        class="btn btn-5"
+        id="switchCard"
+        onclick="switchCard('wrapper_1')"
+      >
+        Switch
+      </button> -->
+    </div>
+    <div class="wrapper wrapper_under" id="wrapper_2">
+      <div class="title-text">
+        <div class="title signup">SignUp</div>
+      </div>
+      <div class="form-container">
+        <div class="form-inner">
+          <form class="signup">
+            <div class="field">
+              <input type="text" placeholder="Email Address" required />
+            </div>
+            <p class="field">
+              <!-- <label for="password">Password:</label> -->
+              <input
+                type="password"
+                name="password"
+                placeholder="Password"
+                id="s_password"
+                required
+              />
+              <i class="bi bi-eye-slash" id="s_togglePassword"></i>
+            </p>
+            <p class="field">
+              <!-- <label for="password"> Confirm Password:</label> -->
+              <input
+                type="password"
+                name="password"
+                placeholder="Confirm Password"
+                id="c_password"
+                required
+              />
+              <i class="bi bi-eye-slash" id="c_togglePassword"></i>
+            </p>
+            <!-- <div class="field">
+              <input type="password" placeholder="Password" required />
+            </div>
+            <div class="field">
+              <input type="password" placeholder="Confirm Password" required />
+            </div> -->
+            <div class="field btn">
+              <div class="btn-layer"></div>
+              <input type="submit" value="SignUp" />
+            </div>
+          </form>
+          <div class="login-link">
+            Already Have Account?
+            <button class="btn btn-5" onclick="switchCard('wrapper_2')">
+              Login
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- class="btn btn-5 draw-border" -->
+      <!-- <button
+        class="btn btn-5"
+        id="switchCard"
+        onclick="switchCard('wrapper_2')"
+      >
+        Switch
+      </button> -->
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="./js/toastbtn.js"></script>
+    <script>
+      const togglePassword = document.querySelector("#togglePassword");
+      const password = document.querySelector("#password");
+      const s_togglePassword = document.querySelector("#s_togglePassword");
+      const s_password = document.querySelector("#s_password");
+      const c_togglePassword = document.querySelector("#c_togglePassword");
+      const c_password = document.querySelector("#c_password");
+
+      togglePassword.addEventListener("click", function () {
+        Showtoggler(password);
+      });
+      s_togglePassword.addEventListener("click", function () {
+        Showtoggler(s_password);
+      });
+      c_togglePassword.addEventListener("click", function () {
+        Showtoggler(c_password);
+      });
+      function Showtoggler(pass) {
+        const type =
+          pass.getAttribute("type") === "password" ? "text" : "password";
+        pass.setAttribute("type", type);
+
+        this.classList.toggle("bi-eye");
+      }
+
+      const form = document.querySelector("form");
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+      });
+
+      function sendNotification() {
+        const toasts = new Toasts({
+          offsetX: 20, // 20px
+          offsetY: 20, // 20px
+          gap: 20, // The gap size in pixels between toasts
+          width: 300, // 300px
+          timing: "ease", // See list of available CSS transition timings
+          duration: ".5s", // Transition duration
+          dimOld: true, // Dim old notifications while the newest notification stays highlighted
+          position: "bottom-right", // top-left | top-center | top-right | bottom-left | bottom-center | bottom-right
+        });
+        toasts.push({
+          title: "Dark Toast",
+          content: "My notification description.",
+          style: "dark",
+          onOpen: (toast) => {
+            console.log("The toast has appeared!");
+          },
+          onClose: (toast) => {
+            console.log("The toast has disappeared!");
+          },
+        });
+      }
+
+      function switchCard(wrapperId) {
+        console.log(wrapperId);
+        if (wrapperId == "wrapper_1") {
+          $("#wrapper_2").removeClass("wrapper_under");
+          $("#wrapper_2").addClass("cardanimation");
+          $("#wrapper_1").removeClass("cardanimation");
+          setTimeout(() => {
+            $("#wrapper_2").addClass("zIndex");
+            $("#wrapper_1").removeClass("zIndex");
+          }, 400);
+          $("#wrapper_1").addClass("wrapper_under");
+        } else {
+          $("#wrapper_1").removeClass("wrapper_under");
+          $("#wrapper_1").addClass("cardanimation");
+          $("#wrapper_2").removeClass("cardanimation");
+          setTimeout(() => {
+            $("#wrapper_1").addClass("zIndex");
+            $("#wrapper_2").removeClass("zIndex");
+          }, 400);
+
+          $("#wrapper_2").addClass("wrapper_under");
+        }
+      }
+      //   document
+      //     .getElementById("loginForm")
+      //     .addEventListener("submit", function (event) {
+      //           event.preventDefault();
+      //           var username = document.getElementById("loginUsername").value;
+      //           var password = document.getElementById("loginPassword").value;
+
+      //           // Check if the credentials are correct
+      //           if (username === "Admin" && password === "Admin") {
+      //             // Run the Python file
+      // window.open("./index.php");
+      //             // AJAX request to execute the Python file
+      //             $.ajax({
+      //               url: "./index.php",
+      //               method: "POST",
+      //               success: function (response) {
+      //                 console.log(response); // Handle the response from the server
+      //               },
+      //               error: function (xhr, status, error) {
+      //                 console.error(error); // Handle any errors
+      //               },
+      //             });
+      //           } else {
+      //             alert("Invalid username or password");
+      //           }
+      //         });
+    </script>
+  </body>
+</html>
